@@ -1,0 +1,9 @@
+{
+	"compilerOptions": {
+		"baseUrl": ".",
+		"paths": {
+			"_comps/*": ["src/comps/*"],
+			"_supabase": ["src/supabase/init.js"],
+		}
+	}
+}
