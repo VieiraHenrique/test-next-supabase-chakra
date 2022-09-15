@@ -10,7 +10,7 @@ export default function EntryRow({ entry }) {
 	return (
 		<Tr>
 			{entryCells.map((cell) => (
-				<Td>{cell}</Td>
+				<Td key={cell}>{cell}</Td>
 			))}
 		</Tr>
 	);

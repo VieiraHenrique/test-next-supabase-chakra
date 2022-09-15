@@ -1,15 +1,10 @@
 import { useEffect, useState } from 'react';
-import { Table, Thead, Tbody, Tr, Th, Td, TableContainer } from '@chakra-ui/react';
+import { Table, Thead, Tbody, Tr, Th, Td, TableContainer, Input, Select } from '@chakra-ui/react';
 import EntryRow from './EntryRow';
 
 export default function DashboardTable({ data, dataKeys }) {
 	const [filterInputs, setFilterInputs] = useState(dataKeys);
 	const [displayedData, setDisplayedData] = useState(data);
-
-	const keys = [];
-	for (const key in dataKeys) {
-		keys.push(key);
-	}
 
 	useEffect(() => {
 		console.log(filterInputs);
@@ -46,15 +41,55 @@ export default function DashboardTable({ data, dataKeys }) {
 				</Thead>
 				<Tbody>
 					<Tr>
-						{keys.map((key) => (
-							<Td key={key}>
-								<input type="text" onChange={(e) => setFilterInputs({ ...filterInputs, [key]: e.target.value })} />
-							</Td>
-						))}
+						<Td>
+							<Input type="text" onChange={(e) => setFilterInputs({ ...filterInputs, id: e.target.value })} />
+						</Td>
+						<Td>
+							<Input type="text" onChange={(e) => setFilterInputs({ ...filterInputs, travel_code: e.target.value })} />
+						</Td>
+						<Td>
+							<Input type="text" onChange={(e) => setFilterInputs({ ...filterInputs, email: e.target.value })} />
+						</Td>
+						<Td>
+							<Input type="text" onChange={(e) => setFilterInputs({ ...filterInputs, first_name: e.target.value })} />
+						</Td>
+						<Td>
+							<Input type="text" onChange={(e) => setFilterInputs({ ...filterInputs, last_name: e.target.value })} />
+						</Td>
+						<Td>
+							<Select type="text" onChange={(e) => setFilterInputs({ ...filterInputs, status: e.target.value })}>
+								<option value="created">Created</option>
+								<option value="initialized">Initialized</option>
+								<option value="verified">Verified</option>
+								<option value="booked">Booked</option>
+								<option value="declined">Declined</option>
+								<option value="cancelled">Cancelled</option>
+							</Select>
+						</Td>
+						<Td>
+							<Input type="text" onChange={(e) => setFilterInputs({ ...filterInputs, special_type: e.target.value })} />
+						</Td>
+						<Td>
+							<Select type="text" onChange={(e) => setFilterInputs({ ...filterInputs, ticket_type: e.target.value })}>
+								<option value="fix">FIX</option>
+								<option value="flex">FLEX</option>
+							</Select>
+						</Td>
+						<Td>
+							<Input type="text" onChange={(e) => setFilterInputs({ ...filterInputs, country: e.target.value })} />
+						</Td>
+						<Td>
+							<Input type="text" onChange={(e) => setFilterInputs({ ...filterInputs, flight_cost: e.target.value })} />
+						</Td>
+						<Td>
+							<Input type="date" onChange={(e) => setFilterInputs({ ...filterInputs, departure_date: e.target.value })} />
+						</Td>
 					</Tr>
-					{displayedData && displayedData.map((entry) => <EntryRow key={entry.id} entry={entry} />)}
+					{displayedData && displayedData.map((entry) => <EntryRow entry={entry} />)}
 				</Tbody>
 			</Table>
 		</TableContainer>
 	);
 }
+
+// onChange={(e) => setFilterInputs({ ...filterInputs, departure_date: e.target.value })}
