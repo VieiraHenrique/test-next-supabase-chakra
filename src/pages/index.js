@@ -1,4 +1,3 @@
-
 import Table from '_comps/dashboard/DashboardTable';
 import supabase from '_supabase';
 

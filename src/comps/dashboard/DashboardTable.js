@@ -77,7 +77,10 @@ export default function DashboardTable({ data, dataKeys }) {
 								<Input type="text" onChange={(e) => setFilterInputs({ ...filterInputs, last_name: e.target.value })} />
 							</Td>
 							<Td>
-								<Select type="text" onChange={(e) => setFilterInputs({ ...filterInputs, status: e.target.value })}>
+								<Select onChange={(e) => setFilterInputs({ ...filterInputs, status: e.target.value })}>
+									<option value="" selected>
+										ALL
+									</option>
 									<option value="created">Created</option>
 									<option value="initialized">Initialized</option>
 									<option value="verified">Verified</option>
@@ -87,10 +90,19 @@ export default function DashboardTable({ data, dataKeys }) {
 								</Select>
 							</Td>
 							<Td>
-								<Input type="text" onChange={(e) => setFilterInputs({ ...filterInputs, special_type: e.target.value })} />
+								<Select onChange={(e) => setFilterInputs({ ...filterInputs, special_type: e.target.value })}>
+									<option value="" selected>
+										ALL
+									</option>
+									<option value="stdn">stdn</option>
+									<option value="acc">acc</option>
+								</Select>
 							</Td>
 							<Td>
-								<Select type="text" onChange={(e) => setFilterInputs({ ...filterInputs, ticket_type: e.target.value })}>
+								<Select onChange={(e) => setFilterInputs({ ...filterInputs, ticket_type: e.target.value })}>
+									<option value="" selected>
+										ALL
+									</option>
 									<option value="fix">FIX</option>
 									<option value="flex">FLEX</option>
 								</Select>
