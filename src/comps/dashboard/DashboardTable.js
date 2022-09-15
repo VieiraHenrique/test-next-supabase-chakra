@@ -2,14 +2,36 @@ import { useEffect, useState } from 'react';
 import { Table, Thead, Tbody, Tr, Th, Td, TableContainer, Input, Select, Button } from '@chakra-ui/react';
 import EntryRow from './EntryRow';
 import { useRouter } from 'next/router';
+import supabase from '_supabase';
 
 export default function DashboardTable({ data, dataKeys }) {
 	const [filterInputs, setFilterInputs] = useState(dataKeys);
 	const [displayedData, setDisplayedData] = useState(data);
+	const [deleteList, setDeleteList] = useState([]);
+
 	const router = useRouter();
 
 	const clearFilters = () => {
 		setFilterInputs(dataKeys);
+	};
+
+	const addToDeleteList = (id) => {
+		setDeleteList([...deleteList, id]);
+	};
+
+	const removeFromDeleteList = (id) => {
+		setDeleteList(
+			deleteList.filter((entry) => {
+				return entry !== id;
+			})
+		);
+	};
+
+	const bulkDelete = () => {
+		deleteList.forEach(async (id) => {
+			const { data, error } = await supabase.from('registrations').delete().eq('id', id);
+			router.push('/');
+		});
 	};
 
 	const toCreatePage = () => {
@@ -17,8 +39,6 @@ export default function DashboardTable({ data, dataKeys }) {
 	};
 
 	useEffect(() => {
-		console.log(filterInputs);
-
 		setDisplayedData(
 			data.filter((entry) => {
 				for (const key in filterInputs) {
@@ -36,7 +56,7 @@ export default function DashboardTable({ data, dataKeys }) {
 			<Button mr={15} onClick={() => clearFilters()}>
 				Clear filters
 			</Button>
-			<Button mr={15} onClick={() => clearFilters()}>
+			<Button mr={15} onClick={() => bulkDelete()}>
 				Delete selected entries
 			</Button>
 			<Button onClick={() => toCreatePage()}>Create new entry</Button>
@@ -61,7 +81,7 @@ export default function DashboardTable({ data, dataKeys }) {
 					</Thead>
 					<Tbody>
 						<Tr>
-							<Td></Td>
+							<Td>Select</Td>
 							<Td>
 								<Input type="text" onChange={(e) => setFilterInputs({ ...filterInputs, id: e.target.value })} />
 							</Td>
@@ -79,9 +99,7 @@ export default function DashboardTable({ data, dataKeys }) {
 							</Td>
 							<Td>
 								<Select onChange={(e) => setFilterInputs({ ...filterInputs, status: e.target.value })}>
-									<option value="" selected>
-										ALL
-									</option>
+									<option value="">ALL</option>
 									<option value="created">Created</option>
 									<option value="initialized">Initialized</option>
 									<option value="verified">Verified</option>
@@ -92,18 +110,14 @@ export default function DashboardTable({ data, dataKeys }) {
 							</Td>
 							<Td>
 								<Select onChange={(e) => setFilterInputs({ ...filterInputs, special_type: e.target.value })}>
-									<option value="" selected>
-										ALL
-									</option>
+									<option value="">ALL</option>
 									<option value="stdn">stdn</option>
 									<option value="acc">acc</option>
 								</Select>
 							</Td>
 							<Td>
 								<Select onChange={(e) => setFilterInputs({ ...filterInputs, ticket_type: e.target.value })}>
-									<option value="" selected>
-										ALL
-									</option>
+									<option value="">ALL</option>
 									<option value="fix">FIX</option>
 									<option value="flex">FLEX</option>
 								</Select>
@@ -118,7 +132,7 @@ export default function DashboardTable({ data, dataKeys }) {
 								<Input type="date" onChange={(e) => setFilterInputs({ ...filterInputs, departure_date: e.target.value })} />
 							</Td>
 						</Tr>
-						{displayedData && displayedData.map((entry) => <EntryRow key={entry.id} entry={entry} />)}
+						{displayedData && displayedData.map((entry) => <EntryRow key={entry.id} entry={entry} addToDeleteList={addToDeleteList} removeFromDeleteList={removeFromDeleteList} />)}
 					</Tbody>
 				</Table>
 			</TableContainer>

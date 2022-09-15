@@ -40,12 +40,11 @@ export default function AddNew() {
 
 		if (checkFields(formData)) {
 			setError(false);
-			console.log(formData);
 			const { data, error } = await supabase.from('registrations').insert([formData]);
 			if (!error) {
 				setSuccess(true);
 				setTimeout(() => {
-					router.push('/')	
+					router.push('/');
 				}, 3000);
 			}
 		} else {

@@ -1,6 +1,5 @@
 NEXT STEPS :
 
-- page "new", create new entry in supabase
 - page "dashboard", bulk delete entries
 - page "[id]", update entry
 - page "dashboard", implement pagination
