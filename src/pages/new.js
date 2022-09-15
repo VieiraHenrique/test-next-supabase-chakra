@@ -42,7 +42,7 @@ export default function AddNew() {
 			console.log(formData);
 			const { data, error } = await supabase.from('registrations').insert([formData]);
 			if (error) {
-				console.log(error)
+				console.log(error);
 			}
 		} else {
 			setError(true);

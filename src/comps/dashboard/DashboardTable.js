@@ -40,6 +40,7 @@ export default function DashboardTable({ data, dataKeys }) {
 				Delete selected entries
 			</Button>
 			<Button onClick={() => toCreatePage()}>Create new entry</Button>
+
 			<TableContainer>
 				<Table>
 					<Thead>
@@ -121,6 +122,8 @@ export default function DashboardTable({ data, dataKeys }) {
 					</Tbody>
 				</Table>
 			</TableContainer>
+
+			{!displayedData.length ? <p>No records found</p> : ''}
 		</>
 	);
 }
