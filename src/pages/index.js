@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import EntryRow from '_comps/dashboard/EntryRow';
 import supabase from '_supabase';
 
 export default function Dashboard({ data, error, dataKeys }) {
@@ -28,16 +29,9 @@ export default function Dashboard({ data, error, dataKeys }) {
 			<input type="text" onChange={(e) => setFilterInputs({ ...filterInputs, first_name: e.target.value })} />
 			<p>Last name</p>
 			<input type="text" onChange={(e) => setFilterInputs({ ...filterInputs, last_name: e.target.value })} />
-			{displayedData &&
-				displayedData.map((entry) => (
-					<div key={entry.id}>
-						<ul>
-							<li> FIRST NAME: {entry.first_name}</li>
-							<li> LAST NAME: {entry.last_name}</li>
-						</ul>
-						<hr />
-					</div>
-				))}
+			<p>Date :</p>
+			<input type="date" onChange={(e) => setFilterInputs({ ...filterInputs, departure_date: e.target.value })} />
+			{displayedData && displayedData.map((entry) => <EntryRow key={entry.id} entry={entry} />)}
 		</>
 	);
 }
