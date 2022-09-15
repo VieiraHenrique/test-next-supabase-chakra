@@ -25,7 +25,7 @@ export default function EntryRow({ entry, addToDeleteList, removeFromDeleteList 
 	return (
 		<Tr>
 			<Td>
-				<Checkbox value={entry.id} onChange={(e) => checkCheckbox(e)}></Checkbox>
+				<input type="checkbox" value={entry.id} onChange={(e) => checkCheckbox(e)}></input>
 			</Td>
 			{entryCells.map((cell) => (
 				<Td onClick={() => toSinglePage()} cursor={'pointer'} key={cell}>

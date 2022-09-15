@@ -2,3 +2,4 @@ NEXT STEPS :
 
 - page "[id]", update entry
 - page "dashboard", implement pagination
+- make registration

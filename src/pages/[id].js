@@ -3,7 +3,11 @@ import { useRouter } from 'next/router';
 export default function Single() {
 	const router = useRouter();
 
-	return <div>Hello world</div>;
+	return (
+		<>
+			<Button onClick={() => toDashboard()}>Back to dashboard</Button>
+		</>
+	);
 }
 
 export async function getServerSideProps() {

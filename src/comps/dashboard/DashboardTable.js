@@ -31,6 +31,7 @@ export default function DashboardTable({ data, dataKeys }) {
 	const bulkDelete = () => {
 		deleteList.forEach(async (id) => {
 			const { data, error } = await supabase.from('registrations').delete().eq('id', id);
+			removeFromDeleteList(id);
 			router.push('/');
 		});
 	};
@@ -83,22 +84,22 @@ export default function DashboardTable({ data, dataKeys }) {
 						<Tr>
 							<Td>Select</Td>
 							<Td>
-								<Input type="text" onChange={(e) => setFilterInputs({ ...filterInputs, id: e.target.value })} />
+								<Input type="text" value={filterInputs.id} onChange={(e) => setFilterInputs({ ...filterInputs, id: e.target.value })} />
 							</Td>
 							<Td>
-								<Input type="text" onChange={(e) => setFilterInputs({ ...filterInputs, travel_code: e.target.value })} />
+								<Input type="text" value={filterInputs.travel_code} onChange={(e) => setFilterInputs({ ...filterInputs, travel_code: e.target.value })} />
 							</Td>
 							<Td>
-								<Input type="text" onChange={(e) => setFilterInputs({ ...filterInputs, email: e.target.value })} />
+								<Input type="text" value={filterInputs.email} onChange={(e) => setFilterInputs({ ...filterInputs, email: e.target.value })} />
 							</Td>
 							<Td>
-								<Input type="text" onChange={(e) => setFilterInputs({ ...filterInputs, first_name: e.target.value })} />
+								<Input type="text" value={filterInputs.first_name} onChange={(e) => setFilterInputs({ ...filterInputs, first_name: e.target.value })} />
 							</Td>
 							<Td>
-								<Input type="text" onChange={(e) => setFilterInputs({ ...filterInputs, last_name: e.target.value })} />
+								<Input type="text" value={filterInputs.last_name} onChange={(e) => setFilterInputs({ ...filterInputs, last_name: e.target.value })} />
 							</Td>
 							<Td>
-								<Select onChange={(e) => setFilterInputs({ ...filterInputs, status: e.target.value })}>
+								<Select value={filterInputs.status} onChange={(e) => setFilterInputs({ ...filterInputs, status: e.target.value })}>
 									<option value="">ALL</option>
 									<option value="created">Created</option>
 									<option value="initialized">Initialized</option>
@@ -109,27 +110,27 @@ export default function DashboardTable({ data, dataKeys }) {
 								</Select>
 							</Td>
 							<Td>
-								<Select onChange={(e) => setFilterInputs({ ...filterInputs, special_type: e.target.value })}>
+								<Select value={filterInputs.special_type} onChange={(e) => setFilterInputs({ ...filterInputs, special_type: e.target.value })}>
 									<option value="">ALL</option>
 									<option value="stdn">stdn</option>
 									<option value="acc">acc</option>
 								</Select>
 							</Td>
 							<Td>
-								<Select onChange={(e) => setFilterInputs({ ...filterInputs, ticket_type: e.target.value })}>
+								<Select value={filterInputs.ticket_type} onChange={(e) => setFilterInputs({ ...filterInputs, ticket_type: e.target.value })}>
 									<option value="">ALL</option>
 									<option value="fix">FIX</option>
 									<option value="flex">FLEX</option>
 								</Select>
 							</Td>
 							<Td>
-								<Input type="text" onChange={(e) => setFilterInputs({ ...filterInputs, country: e.target.value })} />
+								<Input type="text" value={filterInputs.country} onChange={(e) => setFilterInputs({ ...filterInputs, country: e.target.value })} />
 							</Td>
 							<Td>
-								<Input type="text" onChange={(e) => setFilterInputs({ ...filterInputs, flight_cost: e.target.value })} />
+								<Input type="text" value={filterInputs.flight_cost} onChange={(e) => setFilterInputs({ ...filterInputs, flight_cost: e.target.value })} />
 							</Td>
 							<Td>
-								<Input type="date" onChange={(e) => setFilterInputs({ ...filterInputs, departure_date: e.target.value })} />
+								<Input type="date" value={filterInputs.departure_date} onChange={(e) => setFilterInputs({ ...filterInputs, departure_date: e.target.value })} />
 							</Td>
 						</Tr>
 						{displayedData && displayedData.map((entry) => <EntryRow key={entry.id} entry={entry} addToDeleteList={addToDeleteList} removeFromDeleteList={removeFromDeleteList} />)}
