@@ -1,13 +1,19 @@
 import { useEffect, useState } from 'react';
 import { Table, Thead, Tbody, Tr, Th, Td, TableContainer, Input, Select, Button } from '@chakra-ui/react';
 import EntryRow from './EntryRow';
+import { useRouter } from 'next/router';
 
 export default function DashboardTable({ data, dataKeys }) {
 	const [filterInputs, setFilterInputs] = useState(dataKeys);
 	const [displayedData, setDisplayedData] = useState(data);
+	const router = useRouter();
 
 	const clearFilters = () => {
 		setFilterInputs(dataKeys);
+	};
+
+	const toCreatePage = () => {
+		router.push('/new');
 	};
 
 	useEffect(() => {
@@ -27,7 +33,13 @@ export default function DashboardTable({ data, dataKeys }) {
 
 	return (
 		<>
-			<Button onClick={() => clearFilters()}>Clear filters</Button>
+			<Button mr={15} onClick={() => clearFilters()}>
+				Clear filters
+			</Button>
+			<Button mr={15} onClick={() => clearFilters()}>
+				Delete selected entries
+			</Button>
+			<Button onClick={() => toCreatePage()}>Create new entry</Button>
 			<TableContainer>
 				<Table>
 					<Thead>
@@ -100,5 +112,3 @@ export default function DashboardTable({ data, dataKeys }) {
 		</>
 	);
 }
-
-// onChange={(e) => setFilterInputs({ ...filterInputs, departure_date: e.target.value })}
