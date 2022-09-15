@@ -15,12 +15,14 @@ export default function EntryRow({ entry }) {
 	}
 
 	return (
-		<Tr >
+		<Tr>
 			<Td>
 				<Checkbox value={entry.id}></Checkbox>
 			</Td>
 			{entryCells.map((cell) => (
-				<Td onClick={() => toSinglePage()} cursor={'pointer'} key={cell}>{cell}</Td>
+				<Td onClick={() => toSinglePage()} cursor={'pointer'} key={cell}>
+					{cell}
+				</Td>
 			))}
 		</Tr>
 	);

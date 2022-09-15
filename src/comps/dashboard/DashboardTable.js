@@ -105,7 +105,7 @@ export default function DashboardTable({ data, dataKeys }) {
 								<Input type="date" onChange={(e) => setFilterInputs({ ...filterInputs, departure_date: e.target.value })} />
 							</Td>
 						</Tr>
-						{displayedData && displayedData.map((entry) => <EntryRow entry={entry} />)}
+						{displayedData && displayedData.map((entry) => <EntryRow key={entry.id} entry={entry} />)}
 					</Tbody>
 				</Table>
 			</TableContainer>
