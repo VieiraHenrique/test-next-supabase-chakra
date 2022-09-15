@@ -9,16 +9,16 @@ export default function AddNew() {
 	const [error, setError] = useState(false);
 
 	const [formData, setFormData] = useState({
-		travelCode: '',
+		travel_code: '',
 		email: '',
-		firstName: '',
-		lastName: '',
+		first_name: '',
+		last_name: '',
 		status: 'initialized',
-		specialType: 'stdn',
-		ticketType: 'fix',
+		special_type: 'stdn',
+		ticket_type: 'fix',
 		country: '',
-		flightCost: '',
-		departureDate: '',
+		flight_cost: '',
+		departure_date: '',
 	});
 
 	const toDashboard = () => {
@@ -34,14 +34,19 @@ export default function AddNew() {
 		return true;
 	};
 
-	const handleNewEntry = (e) => {
+	const handleNewEntry = async (e) => {
 		e.preventDefault();
 
 		if (checkFields(formData)) {
 			setError(false);
 			console.log(formData);
+			const { data, error } = await supabase.from('registrations').insert([formData]);
+			if (error) {
+				console.log(error)
+			}
 		} else {
 			setError(true);
+			return;
 		}
 	};
 
@@ -53,7 +58,7 @@ export default function AddNew() {
 				<form onSubmit={(e) => handleNewEntry(e)}>
 					<label>
 						Travel Code
-						<Input type="text" value={formData.travelCode} onChange={(e) => setFormData({ ...formData, travelCode: e.target.value })} />
+						<Input type="text" value={formData.travel_code} onChange={(e) => setFormData({ ...formData, travel_code: e.target.value })} />
 					</label>
 					<label>
 						Email address
@@ -61,11 +66,11 @@ export default function AddNew() {
 					</label>
 					<label>
 						First Name
-						<Input type="text" value={formData.firstName} onChange={(e) => setFormData({ ...formData, firstName: e.target.value })} />
+						<Input type="text" value={formData.first_name} onChange={(e) => setFormData({ ...formData, first_name: e.target.value })} />
 					</label>
 					<label>
 						Last Name
-						<Input type="text" value={formData.lastName} onChange={(e) => setFormData({ ...formData, lastName: e.target.value })} />
+						<Input type="text" value={formData.last_name} onChange={(e) => setFormData({ ...formData, last_name: e.target.value })} />
 					</label>
 					<label>
 						Status
@@ -80,14 +85,14 @@ export default function AddNew() {
 					</label>
 					<label>
 						Special Type
-						<Select value={formData.specialType} onChange={(e) => setFormData({ ...formData, specialType: e.target.value })}>
+						<Select value={formData.special_type} onChange={(e) => setFormData({ ...formData, special_type: e.target.value })}>
 							<option value="stdn">stdn</option>
 							<option value="acc">acc</option>
 						</Select>
 					</label>
 					<label>
 						Ticket Type
-						<Select value={formData.ticketType} onChange={(e) => setFormData({ ...formData, ticketType: e.target.value })}>
+						<Select value={formData.ticket_type} onChange={(e) => setFormData({ ...formData, ticket_type: e.target.value })}>
 							<option value="fix">FIX</option>
 							<option value="flex">FLEX</option>
 						</Select>
@@ -98,11 +103,11 @@ export default function AddNew() {
 					</label>
 					<label>
 						Flight Cost
-						<Input type="number" value={formData.flightCost} onChange={(e) => setFormData({ ...formData, flightCost: e.target.value })} />
+						<Input type="number" value={formData.flight_cost} onChange={(e) => setFormData({ ...formData, flight_cost: e.target.value })} />
 					</label>
 					<label>
 						Departure Date
-						<Input type="date" value={formData.departureDate} onChange={(e) => setFormData({ ...formData, departureDate: e.target.value })} />
+						<Input type="date" value={formData.departure_date} onChange={(e) => setFormData({ ...formData, departure_date: e.target.value })} />
 					</label>
 					<Button type="submit">Create</Button>
 				</form>
