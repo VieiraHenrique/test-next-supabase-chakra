@@ -2,49 +2,38 @@ import { useEffect, useState } from 'react';
 import supabase from '_supabase';
 
 export default function Dashboard({ data, error, dataKeys }) {
-	const [filterData, setFilterData] = useState(dataKeys);
-	const [filteredResult, setFilteredResult] = useState(data);
+	const [filterInputs, setFilterInputs] = useState(dataKeys);
+	const [displayedData, setDisplayedData] = useState(data);
 
 	useEffect(() => {
-		setFilteredResult(
-			filteredResult.filter((entry) => {
-				for (const key in filterData) {
-					if (!entry[key].toString().toLowerCase().includes(filterData[key].toString().toLowerCase())) {
+		console.log(filterInputs);
+
+		setDisplayedData(
+			data.filter((entry) => {
+				for (const key in filterInputs) {
+					if (!entry[key].toString().toLowerCase().includes(filterInputs[key].toString().toLowerCase())) {
 						return false;
 					}
 				}
-
 				return true;
 			})
 		);
-	}, [filterData]);
+	}, [filterInputs, data]);
 
 	return (
 		<>
 			<h1>Test</h1>
-			<p>Fist Name</p>
-			<input
-				type="text"
-				onChange={(e) => {
-					setFilterData({ ...filterData, first_name: e.target.value });
-				}}
-			/>
-			<p>Last Name</p>
-			<input
-				type="text"
-				onChange={(e) => {
-					setFilterData({ ...filterData, last_name: e.target.value });
-				}}
-			/>
 			<hr />
-			<hr />
-			{filteredResult &&
-				filteredResult.map((entry) => (
+			<p>First name</p>
+			<input type="text" onChange={(e) => setFilterInputs({ ...filterInputs, first_name: e.target.value })} />
+			<p>Last name</p>
+			<input type="text" onChange={(e) => setFilterInputs({ ...filterInputs, last_name: e.target.value })} />
+			{displayedData &&
+				displayedData.map((entry) => (
 					<div key={entry.id}>
 						<ul>
-							<li>ID: {entry.id}</li>
-							<li>FIRST_NAME: {entry.first_name}</li>
-							<li>LAST NAME: {entry.last_name}</li>
+							<li> FIRST NAME: {entry.first_name}</li>
+							<li> LAST NAME: {entry.last_name}</li>
 						</ul>
 						<hr />
 					</div>
