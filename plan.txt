@@ -1,5 +1,4 @@
 NEXT STEPS :
 
-- page "dashboard", bulk delete entries
 - page "[id]", update entry
 - page "dashboard", implement pagination

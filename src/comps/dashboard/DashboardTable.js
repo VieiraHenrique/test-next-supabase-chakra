@@ -54,7 +54,7 @@ export default function DashboardTable({ data, dataKeys }) {
 
 	return (
 		<>
-			{deleteList.length ? <DialogAlert mr={15} text={'Delete selected entries'} bulkDelete={bulkDelete}  /> : ""}
+			{deleteList.length ? <DialogAlert mr={15} text={'Delete selected entries'} bulkDelete={bulkDelete} /> : ''}
 			<Button mr={15} onClick={() => clearFilters()}>
 				Clear filters
 			</Button>
