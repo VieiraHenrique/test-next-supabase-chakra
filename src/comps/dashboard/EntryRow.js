@@ -1,7 +1,15 @@
+import { Tr, Td } from '@chakra-ui/react';
+
 export default function EntryRow({ entry }) {
-	return (
-		<ul>
-			<li>{entry.first_name}</li> <li>{entry.last_name}</li> <li>{entry.departure_date}</li>
-		</ul>
-	);
+	const entryCells = [];
+
+	for (const key in entry) {
+		entryCells.push(entry[key]);
+	}
+
+	return <Tr>
+        {entryCells.map(cell=>(
+            <Td>{cell}</Td>
+        ))}
+    </Tr>;
 }
