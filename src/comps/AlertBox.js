@@ -1,10 +1,10 @@
 import { Alert, AlertIcon, AlertTitle, AlertDescription } from '@chakra-ui/react';
 
-export default function AlertBox({ title, msg }) {
+export default function AlertBox({ status, msg }) {
 	return (
-		<Alert status="error">
+		<Alert status={status}>
 			<AlertIcon />
-			<AlertTitle>{title}</AlertTitle>
+			<AlertTitle>{status}</AlertTitle>
 			<AlertDescription>{msg}</AlertDescription>
 		</Alert>
 	);

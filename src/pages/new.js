@@ -7,6 +7,7 @@ import supabase from '_supabase';
 export default function AddNew() {
 	const router = useRouter();
 	const [error, setError] = useState(false);
+	const [success, setSuccess] = useState(false);
 
 	const [formData, setFormData] = useState({
 		travel_code: '',
@@ -41,8 +42,11 @@ export default function AddNew() {
 			setError(false);
 			console.log(formData);
 			const { data, error } = await supabase.from('registrations').insert([formData]);
-			if (error) {
-				console.log(error);
+			if (!error) {
+				setSuccess(true);
+				setTimeout(() => {
+					router.push('/')	
+				}, 3000);
 			}
 		} else {
 			setError(true);
@@ -52,7 +56,8 @@ export default function AddNew() {
 
 	return (
 		<>
-			{error && <AlertBox title={'error'} msg={'All fields must be filled'} />}
+			{error && <AlertBox status={'error'} msg={'All fields must be filled'} />}
+			{success && <AlertBox status={'success'} msg={'You will be redirected to the dashboard in 3 seconds'} />}
 			<Button onClick={() => toDashboard()}>Back to dashboard</Button>
 			<div>
 				<form onSubmit={(e) => handleNewEntry(e)}>
