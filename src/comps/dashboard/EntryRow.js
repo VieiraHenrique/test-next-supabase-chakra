@@ -7,9 +7,11 @@ export default function EntryRow({ entry }) {
 		entryCells.push(entry[key]);
 	}
 
-	return <Tr>
-        {entryCells.map(cell=>(
-            <Td>{cell}</Td>
-        ))}
-    </Tr>;
+	return (
+		<Tr>
+			{entryCells.map((cell) => (
+				<Td>{cell}</Td>
+			))}
+		</Tr>
+	);
 }
