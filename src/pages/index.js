@@ -1,20 +1,24 @@
-import { Text } from '@chakra-ui/react';
 
-import Col from '_comps/Layout/Col';
-import Container from '_comps/Layout/Container';
+import Table from '_comps/dashboard/DashboardTable';
+import supabase from '_supabase';
 
-export default function Dashboard() {
-	return (
-		<Container>
-			<Col>
-				<Text>Dashboard page</Text>
-			</Col>
-		</Container>
-	);
+export default function Dashboard({ data, error, dataKeys }) {
+	return <>{error ? <p>Error Fetching data</p> : <Table data={data} dataKeys={dataKeys} />}</>;
 }
 
 export async function getServerSideProps() {
+	const { data, error } = await supabase.from('registrations').select();
+	let dataKeys = {};
+	if (data) {
+		for (const key in data[0]) {
+			dataKeys[key] = '';
+		}
+	}
 	return {
-		props: {},
+		props: {
+			data,
+			error,
+			dataKeys,
+		},
 	};
 }

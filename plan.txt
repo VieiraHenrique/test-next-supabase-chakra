@@ -1,0 +1,3 @@
+- display registrations in a table
+- create registration through form in first row (based on enter)
+- 
