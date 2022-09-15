@@ -1,4 +1,4 @@
-import { Tr, Td } from '@chakra-ui/react';
+import { Tr, Td, Checkbox } from '@chakra-ui/react';
 
 export default function EntryRow({ entry }) {
 	const entryCells = [];
@@ -9,6 +9,9 @@ export default function EntryRow({ entry }) {
 
 	return (
 		<Tr>
+			<Td>
+				<Checkbox value={entry.id}></Checkbox>
+			</Td>
 			{entryCells.map((cell) => (
 				<Td key={cell}>{cell}</Td>
 			))}
