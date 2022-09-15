@@ -45,7 +45,7 @@ export default function AddNew() {
 				setSuccess(true);
 				setTimeout(() => {
 					router.push('/');
-				}, 3000);
+				}, 2000);
 			}
 		} else {
 			setError(true);
@@ -56,7 +56,7 @@ export default function AddNew() {
 	return (
 		<>
 			{error && <AlertBox status={'error'} msg={'All fields must be filled'} />}
-			{success && <AlertBox status={'success'} msg={'You will be redirected to the dashboard in 3 seconds'} />}
+			{success && <AlertBox status={'success'} msg={'You will be redirected to the dashboard in 2 seconds'} />}
 			<Button onClick={() => toDashboard()}>Back to dashboard</Button>
 			<div>
 				<form onSubmit={(e) => handleNewEntry(e)}>

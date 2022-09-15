@@ -1,8 +1,9 @@
 import { useEffect, useState } from 'react';
-import { Table, Thead, Tbody, Tr, Th, Td, TableContainer, Input, Select, Button } from '@chakra-ui/react';
+import { Table, Thead, Tbody, Tr, Th, Td, TableContainer, Input, Select, Button, AlertDialog } from '@chakra-ui/react';
 import EntryRow from './EntryRow';
 import { useRouter } from 'next/router';
 import supabase from '_supabase';
+import DialogAlert from '_comps/DialogAlert';
 
 export default function DashboardTable({ data, dataKeys }) {
 	const [filterInputs, setFilterInputs] = useState(dataKeys);
@@ -53,12 +54,11 @@ export default function DashboardTable({ data, dataKeys }) {
 
 	return (
 		<>
+			{deleteList.length ? <DialogAlert mr={15} text={'Delete selected entries'} bulkDelete={bulkDelete}  /> : ""}
 			<Button mr={15} onClick={() => clearFilters()}>
 				Clear filters
 			</Button>
-			<Button mr={15} onClick={() => bulkDelete()}>
-				Delete selected entries
-			</Button>
+
 			<Button onClick={() => toCreatePage()}>Create new entry</Button>
 
 			<TableContainer>
