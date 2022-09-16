@@ -116,15 +116,13 @@ export default function DashboardTable({ data, dataKeys }) {
 
 						{displayedData &&
 							displayedData
-								.slice(currentPage - 1, entriesPerPage)
+
 								.map((entry) => <EntryRow key={entry.id} entry={entry} addToDeleteList={addToDeleteList} removeFromDeleteList={removeFromDeleteList} />)}
 					</Tbody>
 				</Table>
 			</TableContainer>
 
 			{!displayedData.length ? <Text as={'b'}>No records found</Text> : ''}
-
-			<Pagination currentPage={currentPage} setCurrentPage={setCurrentPage} displayedData={displayedData} entriesPerPage={entriesPerPage} totalEntries={totalEntries} totalPages={totalPages} />
 		</>
 	);
 }
