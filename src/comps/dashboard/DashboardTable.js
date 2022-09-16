@@ -19,15 +19,6 @@ export default function DashboardTable({ data, dataKeys }) {
 	const { redirect } = useContext(commonFunctions);
 
 	/*//////////////////
-		PAGINATION STATES AND VARIABLES RELATED
-	*/ //////////////////
-
-	const [currentPage, setCurrentPage] = useState(1);
-	const entriesPerPage = 5;
-	const totalEntries = displayedData.length;
-	const [totalPages, setTotalPages] = useState(Math.ceil(totalEntries / entriesPerPage));
-
-	/*//////////////////
 		FILTER RELATED
 	*/ //////////////////
 	const clearFilters = () => {
@@ -62,22 +53,33 @@ export default function DashboardTable({ data, dataKeys }) {
 	};
 
 	/*//////////////////
+		PAGINATION STATES AND VARIABLES RELATED
+	*/ //////////////////
+
+	const [currentPage, setCurrentPage] = useState(1);
+	const entriesPerPage = 5;
+	const [totalEntries, setTotalEntries] = useState(displayedData.length);
+
+	/*//////////////////
 		USE EFFECT
 			Used to filter displayedData depending on filterInputs
 	*/ //////////////////
 
 	useEffect(() => {
-		setDisplayedData(
-			data.filter((entry) => {
+		const filter = (list) => {
+			return list.filter((entry) => {
 				for (const key in filterInputs) {
 					if (!entry[key].toString().toLowerCase().includes(filterInputs[key].toString().toLowerCase())) {
 						return false;
 					}
 				}
 				return true;
-			})
-		);
-	}, [filterInputs, data]);
+			});
+		};
+
+		setDisplayedData(filter(data).slice((currentPage - 1) * entriesPerPage, currentPage * entriesPerPage));
+		
+	}, [filterInputs, data, currentPage]);
 
 	/*//////////////////
 		COMPONENT
@@ -114,14 +116,12 @@ export default function DashboardTable({ data, dataKeys }) {
 					<Tbody>
 						<Filter filterInputs={filterInputs} setFilterInputs={setFilterInputs} />
 
-						{displayedData &&
-							displayedData
-
-								.map((entry) => <EntryRow key={entry.id} entry={entry} addToDeleteList={addToDeleteList} removeFromDeleteList={removeFromDeleteList} />)}
+						{displayedData && displayedData.map((entry) => <EntryRow key={entry.id} entry={entry} addToDeleteList={addToDeleteList} removeFromDeleteList={removeFromDeleteList} />)}
 					</Tbody>
 				</Table>
 			</TableContainer>
 
+			<Pagination currentPage={currentPage} setCurrentPage={setCurrentPage} totalEntries={totalEntries} entriesPerPage={entriesPerPage} displayedData={displayedData} />
 			{!displayedData.length ? <Text as={'b'}>No records found</Text> : ''}
 		</>
 	);

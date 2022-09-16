@@ -1,7 +1,8 @@
 import { Button, Text } from '@chakra-ui/react';
 import { useState } from 'react';
 
-export default function Pagination({ currentPage, setCurrentPage, totalEntries, totalPages }) {
+export default function Pagination({ currentPage, setCurrentPage, totalEntries, entriesPerPage }) {
+	const [totalPages, setTotalPages] = useState(Math.ceil(totalEntries / entriesPerPage));
 
 	const handlePrevious = () => {
 		if (currentPage > 1) {
@@ -18,6 +19,7 @@ export default function Pagination({ currentPage, setCurrentPage, totalEntries, 
 	return (
 		<div>
 			<Text mt={15}>{totalEntries} results</Text>
+			<Text>Entries per page: {entriesPerPage}</Text>
 			{totalPages > 0 ? (
 				<Text mt={15}>
 					Page {currentPage} of {totalPages}

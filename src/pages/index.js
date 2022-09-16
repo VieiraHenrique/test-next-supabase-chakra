@@ -1,9 +1,9 @@
-import Table from '_comps/dashboard/DashboardTable';
+import DashboardTable from '_comps/dashboard/DashboardTable';
 import supabase from '_supabase';
 
 export default function Dashboard({ data, error, dataKeys }) {
 	// If error fetching, display error message, otherwise, render table passing data and dataKeys as props
-	return <>{error ? <p>Error Fetching data</p> : <Table data={data} dataKeys={dataKeys} />}</>;
+	return <>{error ? <p>Error Fetching data</p> : <DashboardTable data={data} dataKeys={dataKeys} />}</>;
 }
 
 export async function getServerSideProps() {
