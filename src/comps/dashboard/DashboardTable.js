@@ -12,6 +12,8 @@ export default function DashboardTable({ data, dataKeys }) {
 
 	const router = useRouter();
 
+	console.log(deleteList);
+
 	const clearFilters = () => {
 		setFilterInputs(dataKeys);
 	};
@@ -31,7 +33,9 @@ export default function DashboardTable({ data, dataKeys }) {
 	const bulkDelete = () => {
 		deleteList.forEach(async (id) => {
 			const { data, error } = await supabase.from('registrations').delete().eq('id', id);
+
 			removeFromDeleteList(id);
+			setDeleteList([]);
 			router.push('/');
 		});
 	};

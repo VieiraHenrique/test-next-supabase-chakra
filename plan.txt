@@ -1,5 +1,6 @@
 NEXT STEPS :
 
-- page "[id]", update entry
 - page "dashboard", implement pagination
+- handle errors
+- comment all code
 - make registration

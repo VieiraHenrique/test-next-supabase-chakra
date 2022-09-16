@@ -1,4 +1,4 @@
-import { Button, Input, Select } from '@chakra-ui/react';
+import { Button, Container, Input, Select, Text } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 import AlertBox from '_comps/AlertBox';
@@ -54,9 +54,10 @@ export default function AddNew() {
 	};
 
 	return (
-		<>
+		<Container>
 			{error && <AlertBox status={'error'} msg={'All fields must be filled'} />}
 			{success && <AlertBox status={'success'} msg={'You will be redirected to the dashboard in 2 seconds'} />}
+			<Text fontSize={'2xl'}>Create new entry</Text>
 			<Button onClick={() => toDashboard()}>Back to dashboard</Button>
 			<div>
 				<form onSubmit={(e) => handleNewEntry(e)}>
@@ -116,7 +117,7 @@ export default function AddNew() {
 					<Button type="submit">Create</Button>
 				</form>
 			</div>
-		</>
+		</Container>
 	);
 }
 

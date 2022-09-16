@@ -13,7 +13,7 @@ export default function EntryRow({ entry, addToDeleteList, removeFromDeleteList 
 	};
 
 	const toSinglePage = () => {
-		router.push(`/${entry.id})`);
+		router.push(`/${entry.id}`);
 	};
 
 	const entryCells = [];
