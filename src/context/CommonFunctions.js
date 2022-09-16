@@ -11,7 +11,16 @@ export default function CommonFunctionsProvider({ children }) {
 		router.push(path);
 	};
 
-	const values = { redirect };
+	const checkFields = (object) => {
+		for (const key in object) {
+			if (!object[key]) {
+				return false;
+			}
+		}
+		return true;
+	};
+
+	const values = { redirect, checkFields };
 
 	return <commonFunctions.Provider value={values}>{children}</commonFunctions.Provider>;
 }
