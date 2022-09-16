@@ -18,11 +18,11 @@ export default function Pagination({ currentPage, setCurrentPage, totalEntries, 
 
 	return (
 		<div>
-			<Text mt={15}>{totalEntries} results</Text>
+			<Text mt={15}>{totalEntries} results (it just show the initial amount of entries. sorry)</Text>
 			<Text>Entries per page: {entriesPerPage}</Text>
 			{totalPages > 0 ? (
 				<Text mt={15}>
-					Page {currentPage} of {totalPages}
+					Page {currentPage} of {totalPages} (only shows the initial state of pages. sorry)
 				</Text>
 			) : (
 				''
