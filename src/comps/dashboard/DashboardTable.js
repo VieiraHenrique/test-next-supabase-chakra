@@ -1,11 +1,12 @@
 import { useContext, useEffect, useState } from 'react';
-import { Table, Thead, Tbody, Tr, Th, Td, TableContainer, Input, Select, Button, Text } from '@chakra-ui/react';
+import { Table, Thead, Tbody, Tr, Th, TableContainer, Button, Text } from '@chakra-ui/react';
 import EntryRow from './EntryRow';
 import { useRouter } from 'next/router';
 import supabase from '_supabase';
 import DialogAlert from '_comps/DialogAlert';
 import { commonFunctions } from 'src/context/CommonFunctions';
 import Filter from '_comps/Filter';
+import Pagination from '_comps/Pagination';
 
 export default function DashboardTable({ data, dataKeys }) {
 	/*//////////////////
@@ -14,11 +15,17 @@ export default function DashboardTable({ data, dataKeys }) {
 	const [filterInputs, setFilterInputs] = useState(dataKeys);
 	const [displayedData, setDisplayedData] = useState(data);
 	const [deleteList, setDeleteList] = useState([]);
-	const [currentPage, setCurrentPage] = useState(1);
-	const [entriePerPage, setEntriePerPage] = useState(5);
-
 	const router = useRouter();
 	const { redirect } = useContext(commonFunctions);
+
+	/*//////////////////
+		PAGINATION STATES AND VARIABLES RELATED
+	*/ //////////////////
+
+	const [currentPage, setCurrentPage] = useState(1);
+	const entriesPerPage = 5;
+	const totalEntries = displayedData.length;
+	const [totalPages, setTotalPages] = useState(Math.ceil(totalEntries / entriesPerPage));
 
 	/*//////////////////
 		FILTER RELATED
@@ -105,13 +112,19 @@ export default function DashboardTable({ data, dataKeys }) {
 						</Tr>
 					</Thead>
 					<Tbody>
-						<Filter filterInputs={filterInputs} setFilterInputs={setFilterInputs}/>
-						{displayedData && displayedData.map((entry) => <EntryRow key={entry.id} entry={entry} addToDeleteList={addToDeleteList} removeFromDeleteList={removeFromDeleteList} />)}
+						<Filter filterInputs={filterInputs} setFilterInputs={setFilterInputs} />
+
+						{displayedData &&
+							displayedData
+								.slice(currentPage - 1, entriesPerPage)
+								.map((entry) => <EntryRow key={entry.id} entry={entry} addToDeleteList={addToDeleteList} removeFromDeleteList={removeFromDeleteList} />)}
 					</Tbody>
 				</Table>
 			</TableContainer>
 
 			{!displayedData.length ? <Text as={'b'}>No records found</Text> : ''}
+
+			<Pagination currentPage={currentPage} setCurrentPage={setCurrentPage} displayedData={displayedData} entriesPerPage={entriesPerPage} totalEntries={totalEntries} totalPages={totalPages} />
 		</>
 	);
 }

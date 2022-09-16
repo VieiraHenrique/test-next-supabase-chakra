@@ -55,7 +55,7 @@ export default function AddNew() {
 
 			{success && <AlertBox status={'success'} msg={'You will be redirected to the dashboard in 2 seconds'} />}
 
-			<Text fontSize={'2xl'}>Create new entry</Text>
+			<Text fontSize={'4xl'}>Create new entry</Text>
 
 			<Button onClick={() => redirect('/')}>Back to dashboard</Button>
 

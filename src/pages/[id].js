@@ -59,7 +59,7 @@ export default function Single({ entry }) {
 
 			{success && <AlertBox status={'success'} msg={'You will be redirected to the dashboard in 2 seconds'} />}
 
-			<Text fontSize={'2xl'}>Update entry</Text>
+			<Text fontSize={'4xl'}>Update entry</Text>
 
 			<Button onClick={() => redirect('/')}>Back to dashboard</Button>
 

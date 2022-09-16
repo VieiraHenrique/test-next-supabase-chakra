@@ -1,7 +1,10 @@
 NEXT STEPS :
 
-- implement context for common functions
-- comment all code
-- page "dashboard", implement pagination
-- handle errors
-- make registration
+
+- page "dashboard", implement pagination (1h)
+
+    - 
+
+- handle errors (20min)
+- comment all code (10min)
+- make registration (2h)
