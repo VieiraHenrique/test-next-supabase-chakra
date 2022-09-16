@@ -1,6 +1,7 @@
 NEXT STEPS :
 
+- implement context for common functions
+- comment all code
 - page "dashboard", implement pagination
 - handle errors
-- comment all code
 - make registration

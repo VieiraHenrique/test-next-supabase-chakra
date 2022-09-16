@@ -1,9 +1,16 @@
-import { Tr, Td, Checkbox } from '@chakra-ui/react';
-import { useRouter } from 'next/router';
+import { Tr, Td } from '@chakra-ui/react';
+import { useContext } from 'react';
+import { commonFunctions } from 'src/context/CommonFunctions';
 
 export default function EntryRow({ entry, addToDeleteList, removeFromDeleteList }) {
-	const router = useRouter();
+	/*//////////////////
+		STATES and VARIABLES
+	*/ //////////////////
+	const { redirect } = useContext(commonFunctions);
 
+	/*//////////////////
+		HANDLE SELECTION OF ENTRIES IN DASHBOARD
+	*/ //////////////////
 	const checkCheckbox = (e) => {
 		if (e.target.checked) {
 			addToDeleteList(entry.id);
@@ -12,9 +19,9 @@ export default function EntryRow({ entry, addToDeleteList, removeFromDeleteList 
 		}
 	};
 
-	const toSinglePage = () => {
-		router.push(`/${entry.id}`);
-	};
+	/*//////////////////
+		POPULATE ROW WITH ENTRY CONTENT
+	*/ //////////////////
 
 	const entryCells = [];
 
@@ -22,13 +29,17 @@ export default function EntryRow({ entry, addToDeleteList, removeFromDeleteList 
 		entryCells.push(entry[key]);
 	}
 
+	/*//////////////////
+		COMPONENT
+	*/ //////////////////
+
 	return (
 		<Tr>
 			<Td>
 				<input type="checkbox" value={entry.id} onChange={(e) => checkCheckbox(e)}></input>
 			</Td>
 			{entryCells.map((cell) => (
-				<Td onClick={() => toSinglePage()} cursor={'pointer'} key={cell}>
+				<Td onClick={() => redirect(`/${entry.id}`)} cursor={'pointer'} key={cell}>
 					{cell}
 				</Td>
 			))}

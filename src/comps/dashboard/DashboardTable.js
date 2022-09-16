@@ -1,22 +1,34 @@
-import { useEffect, useState } from 'react';
-import { Table, Thead, Tbody, Tr, Th, Td, TableContainer, Input, Select, Button, AlertDialog } from '@chakra-ui/react';
+import { useContext, useEffect, useState } from 'react';
+import { Table, Thead, Tbody, Tr, Th, Td, TableContainer, Input, Select, Button, Text } from '@chakra-ui/react';
 import EntryRow from './EntryRow';
 import { useRouter } from 'next/router';
 import supabase from '_supabase';
 import DialogAlert from '_comps/DialogAlert';
+import { commonFunctions } from 'src/context/CommonFunctions';
 
 export default function DashboardTable({ data, dataKeys }) {
+	/*//////////////////
+		STATES and VARIABLES
+	*/ //////////////////
 	const [filterInputs, setFilterInputs] = useState(dataKeys);
 	const [displayedData, setDisplayedData] = useState(data);
 	const [deleteList, setDeleteList] = useState([]);
+	const [currentPage, setCurrentPage] = useState(1);
+	const [entriePerPage, setEntriePerPage] = useState(5);
 
 	const router = useRouter();
+	const { redirect } = useContext(commonFunctions);
 
-	console.log(deleteList);
-
+	/*//////////////////
+		FILTER RELATED
+	*/ //////////////////
 	const clearFilters = () => {
 		setFilterInputs(dataKeys);
 	};
+
+	/*//////////////////
+		BULK DELETE RELATED
+	*/ //////////////////
 
 	const addToDeleteList = (id) => {
 		setDeleteList([...deleteList, id]);
@@ -32,6 +44,7 @@ export default function DashboardTable({ data, dataKeys }) {
 
 	const bulkDelete = () => {
 		deleteList.forEach(async (id) => {
+			///////////////////// TO DO : handle error
 			const { data, error } = await supabase.from('registrations').delete().eq('id', id);
 
 			removeFromDeleteList(id);
@@ -40,9 +53,10 @@ export default function DashboardTable({ data, dataKeys }) {
 		});
 	};
 
-	const toCreatePage = () => {
-		router.push('/new');
-	};
+	/*//////////////////
+		USE EFFECT
+			Used to filter displayedData depending on filterInputs
+	*/ //////////////////
 
 	useEffect(() => {
 		setDisplayedData(
@@ -57,14 +71,19 @@ export default function DashboardTable({ data, dataKeys }) {
 		);
 	}, [filterInputs, data]);
 
+	/*//////////////////
+		COMPONENT
+	*/ //////////////////
+
 	return (
 		<>
 			{deleteList.length ? <DialogAlert mr={15} text={'Delete selected entries'} bulkDelete={bulkDelete} /> : ''}
+
 			<Button mr={15} onClick={() => clearFilters()}>
 				Clear filters
 			</Button>
 
-			<Button onClick={() => toCreatePage()}>Create new entry</Button>
+			<Button onClick={() => redirect('/new')}>Create new entry</Button>
 
 			<TableContainer>
 				<Table>
@@ -142,7 +161,7 @@ export default function DashboardTable({ data, dataKeys }) {
 				</Table>
 			</TableContainer>
 
-			{!displayedData.length ? <p>No records found</p> : ''}
+			{!displayedData.length ? <Text as={'b'}>No records found</Text> : ''}
 		</>
 	);
 }

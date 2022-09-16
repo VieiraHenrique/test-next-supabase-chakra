@@ -1,17 +1,19 @@
 import { Button, Container, Input, Select, Text } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
+import { commonFunctions } from 'src/context/CommonFunctions';
 import AlertBox from '_comps/AlertBox';
 import supabase from '_supabase';
 
 export default function Single({ entry }) {
-	const router = useRouter();
+	/*//////////////////
+		STATES and VARIABLES
+	*/ //////////////////
+
 	const [error, setError] = useState(false);
 	const [success, setSuccess] = useState(false);
 
-	const toDashboard = () => {
-		router.push('/');
-	};
+	const { redirect } = useContext(commonFunctions);
 
 	const [formData, setFormData] = useState({
 		travel_code: entry.travel_code,
@@ -56,9 +58,13 @@ export default function Single({ entry }) {
 	return (
 		<Container>
 			{error && <AlertBox status={'error'} msg={'All fields must be filled'} />}
+
 			{success && <AlertBox status={'success'} msg={'You will be redirected to the dashboard in 2 seconds'} />}
+
 			<Text fontSize={'2xl'}>Update entry</Text>
-			<Button onClick={() => toDashboard()}>Back to dashboard</Button>
+
+			<Button onClick={() => redirect('/')}>Back to dashboard</Button>
+			
 			<div>
 				<form onSubmit={(e) => handleNewEntry(e)}>
 					<label>
